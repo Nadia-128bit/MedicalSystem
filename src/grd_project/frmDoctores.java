@@ -9,15 +9,16 @@ import java.sql.Statement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 public final class frmDoctores extends javax.swing.JFrame {
     
     private int indiceTabla;
-    
+    private int idDoctor = 0;    
     public int indice = 0;
-    Statement ejecutor=null;
+    Statement ejecutor = null;
     
     private Conexion conexion = new Conexion();
     
@@ -101,52 +102,35 @@ public final class frmDoctores extends javax.swing.JFrame {
         
        //this.T_id_gc.setText(this.tabla_gc.rowAtPoint(point));
        //int indice = this.table_Doctores.rowAtPoint(evt.getPoint());
-       this.txt_IDDoctor.setText(String.valueOf(this.table_Doctores.getValueAt(indice,0)));
        this.txt_Nombre.setText(String.valueOf(this.table_Doctores.getValueAt(indice,1)));
        this.txt_Especialidad.setText(String.valueOf(this.table_Doctores.getValueAt(indice,2)));
-       this.cmb_Area.setSelectedItem(String.valueOf(this.table_Doctores.getValueAt(indice,3)));
        this.txt_Correo.setText(String.valueOf(this.table_Doctores.getValueAt(indice,4)));
        this.txt_Telefono.setText(String.valueOf(this.table_Doctores.getValueAt(indice,5)));
-       this.txt_URL.setText(String.valueOf(this.table_Doctores.getValueAt(indice,6)));
        //this.B_editar.setEnabled(true);
        //this.B_eliminar.setEnabled(true);
        this.T_indice.setText(Integer.toString(indice));
     
-       //Mostrar la foto el label foto
-       String urlImagen = this.txt_URL.getText();
-       ImageIcon img = new ImageIcon(urlImagen);
-       Icon micono = new ImageIcon(img.getImage().getScaledInstance(this.lbl_fotoDoc.getWidth(),this.lbl_fotoDoc.getHeight(),Image.SCALE_DEFAULT));
-       this.lbl_fotoDoc.setIcon(micono);    
     }
     public void desbloquear_textfiles() {
          
-        this.txt_IDDoctor.setFocusable(true);
         this.txt_Nombre.setFocusable(true);
         this.txt_Especialidad.setFocusable(true);
-        this.cmb_Area.setFocusable(true);
         this.txt_Correo.setFocusable(true);
         this.txt_Telefono.setFocusable(true);
-        this.txt_URL.setFocusable(true);
     }
     public void bloquear_textfiles() {
          
-        this.txt_IDDoctor.setFocusable(false);
         this.txt_Nombre.setFocusable(false);
         this.txt_Especialidad.setFocusable(false);
-        this.cmb_Area.setFocusable(false);
         this.txt_Correo.setFocusable(false);
         this.txt_Telefono.setFocusable(false);
-        this.txt_URL.setFocusable(false);  
     }
      public void limpiar_controles() {
          
-        this.txt_IDDoctor.setText("");
         this.txt_Nombre.setText("");
         this.txt_Especialidad.setText("");
-        this.cmb_Area.setSelectedItem("");
         this.txt_Correo.setText("");
         this.txt_Telefono.setText("");
-        this.txt_URL.setText("");
         
     }
      
@@ -214,32 +198,27 @@ public final class frmDoctores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txt_Especialidad = new javax.swing.JTextField();
-        txt_IDDoctor = new javax.swing.JTextField();
         txt_Nombre = new javax.swing.JTextField();
         txt_Telefono = new javax.swing.JTextField();
-        txt_URL = new javax.swing.JTextField();
         txt_Correo = new javax.swing.JTextField();
-        cmb_Area = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        btn_Agregar = new javax.swing.JButton();
-        btn_Editar = new javax.swing.JButton();
-        btn_Eliminar = new javax.swing.JButton();
-        btn_Buscar = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        btn_CambiarFoto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_Doctores = new javax.swing.JTable();
         lbl_fotoDoc = new javax.swing.JLabel();
-        L_conect = new javax.swing.JLabel();
         T_indice = new javax.swing.JTextField();
+        txt_apellido_Paterno = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txt_apellido_Materno = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Doctores");
@@ -250,9 +229,6 @@ public final class frmDoctores extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("ID Doctor:");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Nombre(s):");
 
@@ -262,43 +238,22 @@ public final class frmDoctores extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Teléfono:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Area:");
-
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Especialidad:");
 
-        cmb_Area.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Seleccionar area ---", "Anestesiología", "Cardiología", "Cirugía general", "Cuidados intensivos", "Dermatología", "Hematología", "Medicina interna", "Neumología", "Oncología", "Pediatría", "Rehabilitación", "Urgencias" }));
-
         jPanel1.setBackground(java.awt.Color.lightGray);
 
-        btn_Agregar.setText("Agregar");
-        btn_Agregar.addActionListener(new java.awt.event.ActionListener() {
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AgregarActionPerformed(evt);
+                btn_agregarActionPerformed(evt);
             }
         });
 
-        btn_Editar.setText("Editar");
-        btn_Editar.setMaximumSize(new java.awt.Dimension(75, 25));
-        btn_Editar.setMinimumSize(new java.awt.Dimension(75, 25));
-        btn_Editar.addActionListener(new java.awt.event.ActionListener() {
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_EditarActionPerformed(evt);
-            }
-        });
-
-        btn_Eliminar.setText("Eliminar");
-        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_EliminarActionPerformed(evt);
-            }
-        });
-
-        btn_Buscar.setText("Buscar");
-        btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_BuscarActionPerformed(evt);
+                btn_eliminarActionPerformed(evt);
             }
         });
 
@@ -308,13 +263,9 @@ public final class frmDoctores extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(btn_Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(btn_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(293, 293, 293)
+                .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
@@ -322,10 +273,8 @@ public final class frmDoctores extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -351,13 +300,6 @@ public final class frmDoctores extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        btn_CambiarFoto.setText("Cambiar foto");
-        btn_CambiarFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_CambiarFotoActionPerformed(evt);
-            }
-        });
-
         table_Doctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -373,7 +315,11 @@ public final class frmDoctores extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_Doctores);
 
-        L_conect.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Apellido Paterno:");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Apellido Materno:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -381,9 +327,7 @@ public final class frmDoctores extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(L_conect, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(T_indice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,33 +335,34 @@ public final class frmDoctores extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_IDDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(txt_apellido_Paterno, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(34, 34, 34)
+                                .addComponent(txt_apellido_Materno, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(140, 140, 140)
                         .addComponent(lbl_fotoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(74, 74, 74)
-                        .addComponent(cmb_Area, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110)
-                        .addComponent(txt_URL, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7)
+                        .addGap(23, 23, 23)
+                        .addComponent(txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(59, 59, 59)
-                        .addComponent(txt_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(130, 130, 130)
-                        .addComponent(btn_CambiarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(47, 47, 47)
-                        .addComponent(txt_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -425,11 +370,7 @@ public final class frmDoctores extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(L_conect, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -437,38 +378,33 @@ public final class frmDoctores extends javax.swing.JFrame {
                         .addComponent(T_indice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_fotoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_IDDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_fotoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_apellido_Paterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_apellido_Materno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_Area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(txt_URL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(8, 8, 8)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btn_CambiarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10, 10, 10)
+                            .addComponent(txt_Correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -478,23 +414,28 @@ public final class frmDoctores extends javax.swing.JFrame {
 
     private void table_DoctoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_DoctoresMouseClicked
         int indice = this.table_Doctores.rowAtPoint(evt.getPoint());
-        this.txt_IDDoctor.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 0)));
+        this.idDoctor = Integer.valueOf(String.valueOf(this.table_Doctores.getValueAt(indice, 0)));
         this.txt_Nombre.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 1)));
-        this.txt_Especialidad.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 2)));
-        this.cmb_Area.setActionCommand(valueOf(this.table_Doctores.getValueAt(indice, 3)));
-        this.txt_Correo.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 4)));
-        this.txt_Telefono.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 5)));
-        this.txt_URL.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 6)));
+        this.txt_apellido_Paterno.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 2)));
+        this.txt_apellido_Materno.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 3)));
+        this.txt_Especialidad.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 4)));
+        this.txt_Correo.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 5)));
+        this.txt_Telefono.setText(String.valueOf(this.table_Doctores.getValueAt(indice, 6)));
         
         this.indiceTabla = indice;
-         
-        String urlImagen = this.txt_URL.getText();
-        ImageIcon img = new ImageIcon(urlImagen);
-        Icon micono = new ImageIcon(img.getImage().getScaledInstance(this.lbl_fotoDoc.getWidth(),this.lbl_fotoDoc.getHeight(),Image.SCALE_DEFAULT));
-        this.lbl_fotoDoc.setIcon(micono);
     }//GEN-LAST:event_table_DoctoresMouseClicked
 
-    private void btn_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarActionPerformed
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        String nombre = txt_Nombre.getText();
+        String apellidoPaterno = txt_apellido_Paterno.getText();
+        String apellidoMaterno = txt_apellido_Materno.getText();
+        String especialidad = txt_Especialidad.getText();
+        String correo = txt_Correo.getText();
+        String telefono = txt_Telefono.getText();
+        
+        String consulta = "call insertar_doctor_medicam('"+nombre+"', '"+apellidoPaterno+"', '"+apellidoMaterno+"', '"+especialidad+"', '"+correo+"', '"+telefono+"');";
+        
+        conexion.agregarDatos(consulta);
 //          if(this.btn_Agregar.getText()=="Agregar")
 //       {
 //             this.btn_Agregar.setText("Guardar");
@@ -515,61 +456,21 @@ public final class frmDoctores extends javax.swing.JFrame {
 //           this.btn_Buscar.setEnabled(true);
 //           
 //       }
-    }//GEN-LAST:event_btn_AgregarActionPerformed
+    }//GEN-LAST:event_btn_agregarActionPerformed
 
-    private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
-        this.desbloquear_textfiles();
-        this.limpiar_controles();
-    }//GEN-LAST:event_btn_BuscarActionPerformed
-
-    private void btn_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EditarActionPerformed
-//          if(this.btn_Editar.getText()=="Editar")
-//             
-//       {
-//            this.btn_Editar.setText("Guardar");
-//            this.desbloquear_textfiles();
-//            this.btn_Editar.setEnabled(true);
-//            this.btn_Eliminar.setEnabled(false);
-//            this.btn_Buscar.setEnabled(false);
-//            this.btn_Agregar.setEnabled(false);
-//       }
-//       else
-//       {
-//           this.btn_Editar.setText("Editar");
-//           this.editar_datos();
-//           this.actualizar_tabla();
-//           this.bloquear_textfiles();
-//          // this.B_editar_gc.setEnabled(true);
-//           this.btn_Eliminar.setEnabled(true);
-//           this.btn_Buscar.setEnabled(true);
-//           this.btn_Agregar.setEnabled(true);
-//       }
-    }//GEN-LAST:event_btn_EditarActionPerformed
-
-    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
 //        this.eliminar_datos();
 //        this.actualizar_tabla();
-    }//GEN-LAST:event_btn_EliminarActionPerformed
 
-    private void btn_CambiarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CambiarFotoActionPerformed
-//        String ruta;
-//        JFileChooser nfoto = new JFileChooser("\\\\NADIAG//FotosGRD//ciudades");
-//        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG,PNG & GIF","jpg,","png","gif");
-//        nfoto.setFileFilter(filtrado);
-//
-//        int respuesta= nfoto.showOpenDialog(this);
-//
-//        if (respuesta== nfoto.APPROVE_OPTION)
-//        {
-//            ruta = nfoto.getSelectedFile().getPath();
-//            this.txt_URL.setText(ruta);
-//            this.doblediagonal();
-//            ImageIcon img = new ImageIcon(ruta);
-//            Icon micono = new ImageIcon(img.getImage().getScaledInstance(this.lbl_fotoDoc.getWidth(),this.lbl_fotoDoc.getHeight(),Image.SCALE_DEFAULT));
-//            this.lbl_fotoDoc.setIcon(micono);
-//            //this.T_fogc.setText(ruta);    
-//        }
-    }//GEN-LAST:event_btn_CambiarFotoActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar al doctor?");
+
+        if(opcion == JOptionPane.YES_OPTION) {
+            String consulta = "call eliminar_doctor_medicam('"+idDoctor+"');";
+
+            conexion.eliminar(consulta);
+            cargarDatos();   
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 //        this.actualizar_tabla();
@@ -615,16 +516,11 @@ public final class frmDoctores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L_conect;
     private javax.swing.JTextField T_indice;
-    private javax.swing.JButton btn_Agregar;
-    private javax.swing.JButton btn_Buscar;
-    private javax.swing.JButton btn_CambiarFoto;
-    private javax.swing.JButton btn_Editar;
-    private javax.swing.JButton btn_Eliminar;
-    private javax.swing.JComboBox<String> cmb_Area;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -637,9 +533,9 @@ public final class frmDoctores extends javax.swing.JFrame {
     private javax.swing.JTable table_Doctores;
     private javax.swing.JTextField txt_Correo;
     private javax.swing.JTextField txt_Especialidad;
-    private javax.swing.JTextField txt_IDDoctor;
     private javax.swing.JTextField txt_Nombre;
     private javax.swing.JTextField txt_Telefono;
-    private javax.swing.JTextField txt_URL;
+    private javax.swing.JTextField txt_apellido_Materno;
+    private javax.swing.JTextField txt_apellido_Paterno;
     // End of variables declaration//GEN-END:variables
 }
