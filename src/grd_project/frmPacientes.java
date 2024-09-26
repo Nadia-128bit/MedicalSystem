@@ -26,29 +26,30 @@ public class frmPacientes extends javax.swing.JFrame {
     private int indiceTabla;
     private int idPaciente = 0;
     public int indice = 0;
+    String query = "select *from buscar_paciente_medicam();";
     
-    private void cargarDatos() {
-        
-        String sql = "select *from buscar_paciente_medicam();";
-        try{
-
-            PreparedStatement pst = conexion.getConexion().prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            DefaultTableModel model = (DefaultTableModel)this.table_Pacientes.getModel();
-            model.setRowCount(0);
-            while(rs.next()){
-                model.addRow(new String[]{
-                                            rs.getString(1),
-                                            rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6)});
-            }
-        }catch(Exception ex){
-            System.out.println("Error"+ ex.getMessage());
-        }
-    }
+//    private void cargarDatos() {
+//        
+//        String sql = "select *from buscar_paciente_medicam();";
+//        try{
+//
+//            PreparedStatement pst = conexion.getConexion().prepareStatement(sql);
+//            ResultSet rs = pst.executeQuery();
+//            DefaultTableModel model = (DefaultTableModel)this.table_Pacientes.getModel();
+//            model.setRowCount(0);
+//            while(rs.next()){
+//                model.addRow(new String[]{
+//                                            rs.getString(1),
+//                                            rs.getString(2),
+//                                            rs.getString(3),
+//                                            rs.getString(4),
+//                                            rs.getString(5),
+//                                            rs.getString(6)});
+//            }
+//        }catch(Exception ex){
+//            System.out.println("Error"+ ex.getMessage());
+//        }
+//    }
     
 //    private void agregarDatos(String consulta) {
 //        try {
@@ -62,7 +63,7 @@ public class frmPacientes extends javax.swing.JFrame {
     
     public frmPacientes() {
         initComponents();
-        cargarDatos();
+        conexion.cargarDatos(table_Pacientes, query);
     }
 
     /**
@@ -95,7 +96,7 @@ public class frmPacientes extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jdc_nacimiento = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1360, 509));
         setSize(new java.awt.Dimension(1920, 1080));
 
@@ -347,7 +348,7 @@ public class frmPacientes extends javax.swing.JFrame {
         String consulta = "call insertar_paciente_medicam('"+nss+"', '"+nombre+"', '"+apellidoPaterno+"', '"+apellidoMaterno+"', '"+genero+"', '"+fecha+"');";
                 
         conexion.agregarDatos(consulta);
-        cargarDatos();
+        conexion.cargarDatos(table_Pacientes, query);
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
@@ -358,7 +359,7 @@ public class frmPacientes extends javax.swing.JFrame {
             String consulta = "call eliminar_paciente_medicam('"+idPaciente+"');";
 
             conexion.eliminar(consulta);
-            cargarDatos();   
+            conexion.cargarDatos(table_Pacientes, query);
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 

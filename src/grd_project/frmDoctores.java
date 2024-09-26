@@ -433,7 +433,7 @@ public final class frmDoctores extends javax.swing.JFrame {
         String correo = txt_Correo.getText();
         String telefono = txt_Telefono.getText();
         
-        String consulta = "call insertar_doctor_medicam('"+nombre+"', '"+apellidoPaterno+"', '"+apellidoMaterno+"', '"+especialidad+"', '"+correo+"', '"+telefono+"');";
+        String consulta = "call insertar_doctor_medicam('"+nombre+"', '"+apellidoPaterno+"', '"+apellidoMaterno+"', '"+especialidad+"', '"+telefono+"', '"+correo+"');";
         
         conexion.agregarDatos(consulta);
 //          if(this.btn_Agregar.getText()=="Agregar")

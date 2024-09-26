@@ -13,12 +13,24 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     
 //    public ArrayList<String[]> matrizDatosDoctores = modeloInstancia.baseDatosDoctores();
 //    public ArrayList<String> matrizNombreDoctores = modeloInstancia.obtenerNombreDoctores(); 
-    
+        
     public frmMenuPrincipal() {
         initComponents();
         Calendar c2 = new GregorianCalendar();
         jDateChooser1.setCalendar(c2);
-        
+    }
+    
+    public frmMenuPrincipal(boolean usuario) {
+        initComponents();
+        Calendar c2 = new GregorianCalendar();
+        jDateChooser1.setCalendar(c2);
+                
+        verificarUsuario(usuario);
+    }
+    
+    private void verificarUsuario(boolean usuario) {
+        if(usuario == false)
+            jMenuItem9.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +53,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
@@ -83,7 +94,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jLabel20)
                 .addContainerGap())
         );
@@ -98,9 +109,16 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         jDateChooser1.setDateFormatString("dd /MM /yyyy");
 
-        jMenu1.setText("Formularios");
+        jMenuBar1.setMaximumSize(new java.awt.Dimension(80, 32768));
 
+        jMenu1.setBorder(null);
+        jMenu1.setText("Formularios");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/doctor.png"))); // NOI18N
         jMenuItem1.setText("Doctores");
+        jMenuItem1.setToolTipText("Registrar un medico");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -108,7 +126,10 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hospitalizacion.png"))); // NOI18N
         jMenuItem2.setText("Ingresos");
+        jMenuItem2.setToolTipText("Ingresar Paciente");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -116,6 +137,8 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/agenda.png"))); // NOI18N
         jMenuItem3.setText("Egresos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +147,10 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paciente.png"))); // NOI18N
         jMenuItem8.setText("Pacientes");
+        jMenuItem8.setToolTipText("Registrar nuevo paciente");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -132,7 +158,10 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem8);
 
+        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reporte.png"))); // NOI18N
         jMenuItem9.setText("Reportes");
+        jMenuItem9.setToolTipText("Generar reporte");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -140,7 +169,10 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem9);
 
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mosaico.png"))); // NOI18N
         jMenuItem4.setText("Pizarra");
+        jMenuItem4.setToolTipText("Ver Pacientes Activos");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -148,19 +180,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem7.setText("Costos");
+        jMenu1.add(jMenuItem7);
+
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Ayuda");
-
-        jMenuItem7.setText("Acerca del sistema");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem7);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -229,10 +253,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         frmPizarra pizarra  = new frmPizarra();
         
@@ -299,7 +319,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
