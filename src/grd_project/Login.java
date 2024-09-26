@@ -26,7 +26,11 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(899, 479));
+        setMinimumSize(new java.awt.Dimension(899, 479));
         setResizable(false);
+        setSize(new java.awt.Dimension(899, 479));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/login.png"))); // NOI18N
 
@@ -169,21 +173,28 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_accesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_accesarActionPerformed
         
-        String Usuario = "admin";
-        String Contraseña = "123";
+        String usuarioAdmin = "admin";
+        String contrasenaAdmin = "123";
+        String usuarioEnfermera = "enfermera";
+        String contrasenaEnfermera = "321";
 
-        // Obtén el texto del campo de usuario y contraseña
         String userInput = txt_usuario.getText();
-        String Pass = new String(jpass_contraseña.getPassword());
+        String pass = new String(jpass_contraseña.getPassword());
 
-        // Compara los valores ingresados con los valores definidos
-        if (userInput.equals(Usuario) && Pass.equals(Contraseña)) {
-            frmMenuPrincipal menuPrincipal = new frmMenuPrincipal();
+        if (userInput.equals(usuarioAdmin) && pass.equals(contrasenaAdmin)) {
+            frmMenuPrincipal menuPrincipal = new frmMenuPrincipal(true);
+            
             menuPrincipal.setVisible(true);
             menuPrincipal.setResizable(true);
             menuPrincipal.setExtendedState(MAXIMIZED_BOTH);
-            //JOptionPane.showMessageDialog(this, "si entra");
-        } else {
+        } else if (userInput.equals(usuarioEnfermera) && pass.equals(contrasenaEnfermera)){
+            frmMenuPrincipal menuPrincipal = new frmMenuPrincipal(false);
+            
+            menuPrincipal.setVisible(true);
+            menuPrincipal.setResizable(true);
+            menuPrincipal.setExtendedState(MAXIMIZED_BOTH);
+        }
+        else {
             JOptionPane.showMessageDialog(this, "Usuario / Contraseña incorrecta");
         }
 

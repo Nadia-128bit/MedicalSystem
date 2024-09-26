@@ -9,33 +9,13 @@ import javax.swing.table.DefaultTableModel;
 public class Reportes extends javax.swing.JFrame {
     
     private Conexion conexion = new Conexion();
+    
+    private String query = "select *from generar_reporte_gastos()";
 
     public Reportes() {
         initComponents();
-        cargarDatos();
+        conexion.cargarDatos(table_Reportes, query);
     }
-    public void cargarDatos() {
-        
-        String sql = "select *from generar_reporte_gastos()";
-        try{
-
-            PreparedStatement pst = conexion.getConexion().prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            DefaultTableModel model = (DefaultTableModel)this.table_Reportes.getModel();
-            model.setRowCount(0);
-            while(rs.next()){
-                model.addRow(new String[]{
-                                            rs.getString(1),
-                                            rs.getString(2),
-                                            rs.getString(3),
-                                            rs.getString(4),
-                                            rs.getString(5),
-                                            rs.getString(6)});
-            }
-        }catch(Exception ex){
-            System.out.println("Error"+ ex.getMessage());
-        }
-     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,27 +41,27 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(218, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(208, 208, 208))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
 
         table_Reportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Paciente", "Doctor", "Fecha Ingreso", "Fecha Egreso", "Dias Estancia", "Total"
+                "ID Reporte", "Paciente", "Doctor", "Fecha Ingreso", "Fecha Egreso", "Dias Estancia", "Total"
             }
         ));
         jScrollPane1.setViewportView(table_Reportes);
@@ -96,18 +76,18 @@ public class Reportes extends javax.swing.JFrame {
                         .addGap(173, 173, 173)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(287, Short.MAX_VALUE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();

@@ -13,12 +13,24 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     
 //    public ArrayList<String[]> matrizDatosDoctores = modeloInstancia.baseDatosDoctores();
 //    public ArrayList<String> matrizNombreDoctores = modeloInstancia.obtenerNombreDoctores(); 
-    
+        
     public frmMenuPrincipal() {
         initComponents();
         Calendar c2 = new GregorianCalendar();
         jDateChooser1.setCalendar(c2);
-        
+    }
+    
+    public frmMenuPrincipal(boolean usuario) {
+        initComponents();
+        Calendar c2 = new GregorianCalendar();
+        jDateChooser1.setCalendar(c2);
+                
+        verificarUsuario(usuario);
+    }
+    
+    private void verificarUsuario(boolean usuario) {
+        if(usuario == false)
+            jMenuItem9.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +53,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -92,7 +105,9 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         label2.setPreferredSize(new java.awt.Dimension(1920, 36));
         label2.setText("                                                                         BIENVENIDO AL SISTEMA");
 
-        L_foto.setPreferredSize(new java.awt.Dimension(1920, 1080));
+        L_foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/portada.jpeg"))); // NOI18N
+        L_foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204), 2));
+        L_foto.setPreferredSize(new java.awt.Dimension(1200, 1080));
 
         jDateChooser1.setDateFormatString("dd /MM /yyyy");
 
@@ -100,8 +115,9 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.setBorder(null);
         jMenu1.setText("Formularios");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/doctor.png"))); // NOI18N
         jMenuItem1.setText("Doctores");
         jMenuItem1.setToolTipText("Registrar un medico");
@@ -112,7 +128,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hospitalizacion.png"))); // NOI18N
         jMenuItem2.setText("Ingresos");
         jMenuItem2.setToolTipText("Ingresar Paciente");
@@ -123,7 +139,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/agenda.png"))); // NOI18N
         jMenuItem3.setText("Egresos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +149,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paciente.png"))); // NOI18N
         jMenuItem8.setText("Pacientes");
         jMenuItem8.setToolTipText("Registrar nuevo paciente");
@@ -144,7 +160,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem8);
 
-        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reporte.png"))); // NOI18N
         jMenuItem9.setText("Reportes");
         jMenuItem9.setToolTipText("Generar reporte");
@@ -155,7 +171,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem9);
 
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mosaico.png"))); // NOI18N
         jMenuItem4.setText("Pizarra");
         jMenuItem4.setToolTipText("Ver Pacientes Activos");
@@ -165,6 +181,16 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem4);
+
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/costo.png"))); // NOI18N
+        jMenuItem7.setText("Costos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
@@ -182,8 +208,8 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 .addGap(514, 514, 514)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(394, 394, 394)
-                .addComponent(L_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(355, 355, 355)
+                .addComponent(L_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,8 +219,9 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(L_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(L_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,11 +254,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        String urlImagen = "//NadiaG/fotosGRD/FondoGRD.png";
-        ImageIcon img = new ImageIcon(urlImagen);
-        Icon micono = new ImageIcon(img.getImage().getScaledInstance(this.L_foto.getWidth(),this.L_foto.getHeight(),Image.SCALE_DEFAULT));
-        this.L_foto.setIcon(micono);
-        //this.repaint();
+
         
     }//GEN-LAST:event_formWindowOpened
 
@@ -259,6 +282,14 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         reporte.setResizable(true);
         reporte.setExtendedState(MAXIMIZED_BOTH);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        frmCostos costo = new frmCostos();
+        
+        costo.setSize(975, 450);
+        costo.setLocationRelativeTo(null);
+        costo.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,6 +339,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel11;
